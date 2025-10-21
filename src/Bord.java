@@ -104,9 +104,17 @@ public class Bord {
        }
     }
         return true;
+    }
 
-
-
-
-}
+    //Checks if all safe cells (non-mine) have been revealed — player wins if true.
+    public boolean allCellsRevealed() {
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (!grid[r][c].hasMine()&&grid[r][c].isRevealed()) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 }
