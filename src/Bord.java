@@ -78,7 +78,35 @@ public class Bord {
         return r >= 0 && r < rows && c >= 0 && c < cols;
     }
 
+    //
+     // Reveals a cell.
+     //Returns false if the cell has a mine (game over), otherwise true.
+     //If the cell has no adjacent mines, automatically reveals nearby cells.
+
+    public boolean revealCell(int r, int c) {
+        if (!isInBounds(r, c) || grid[r][c].isRevealed() || grid[r][c].isFlagged()) {
+            return true; // Ignore invalid or flagged cells
+        }
+
+        grid[r][c].reveal();
+
+        //// If the player hits a mine, game ends
+        if (grid[r][c].hasMine()) {
+        return false;
+    }
+
+        // If there are no nearby mines, reveal neighbors recursively
+        if (grid[r][c].getAdjacentMines() == 0) {
+        for (int i =-1; i<=1; i++){
+        for (int j =-1; j<=1; j++){
+            if (i != 0 || j != 0) revealCell(r + i, c + j);
+        }
+       }
+    }
+        return true;
 
 
 
+
+}
 }
