@@ -27,6 +27,7 @@ public class Bord {
         }
 
         placeMines();
+        calculateAdjacents();
 
 
     }
@@ -45,6 +46,35 @@ public class Bord {
             }
         }
     }
+
+    //Calculates how many mines surround each non-mine cell.
+    private int calculateAdjacents() {
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                if (grid[r][c].hasMine()) {
+                    grid[r][c].setAdjacentMines(countAdjacentMines(r, c));
+                }
+            }
+        }
+
+        return 0;
+    }
+    //Counts the number of mines around a specific cell.
+    private int countAdjacentMines(int r, int c) {
+        int count = 0;
+        for(int i=-1; i<=1; i++){
+            for(int j=-1; j<=1; j++){
+                int nr = r+i;
+                int nc = c+j;
+                if(isInBounds(nr,nc)&& grid[nr][nc].hasMine()){
+                    count++;
+                }
+            }
+        }
+        return count;
+    }
+    //Checks whether the given coordinates are inside the board boundaries.
+
 
 
 
