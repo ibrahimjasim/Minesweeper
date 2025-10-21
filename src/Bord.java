@@ -117,4 +117,8 @@ public class Bord {
         }
         return true;
     }
+
+    public void printBoard(boolean revealAll) {
+        for (int r = 0; r < rows; r++) {}
+    }
 }
