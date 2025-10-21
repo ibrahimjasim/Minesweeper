@@ -11,6 +11,20 @@ public class Bord {
         this.cols = cols;
         this.totalMines = totalMines;
         grid = new Cell[rows][cols];
+
+        initializeBoard();
+    }
+
+    // Initializes the board by creating cells, placing mines, and calculating numbers.
+    private void initializeBoard() {
+        // Create empty cells
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < cols; j++) {
+                grid[i][j] = new Cell();
+            }
+        }
+
+
     }
 
 
