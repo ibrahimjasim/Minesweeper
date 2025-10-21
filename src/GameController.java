@@ -6,26 +6,59 @@ public class GameController {
     private HighScore highscore;
 
     public GameController() {
-        this.board= new Board(10,10,10);
-        this.player = new Player ("Player 1");
-        this.cpu = new CpuUser("CPU");
-        this.isRunning = true;
         this.highscore = new HighScore();
     }
 
     public void startGame() {
-        IO.println("Welcome to Minesweeper!");
-        board.printBoard(false);
+        boolean exit = false;
 
-        while (isRunning) {
-            playerTurn();
-            if (checkGameOver()) break;
+        while (!exit) {
+            IO.println("******Minesweeper menu******");
+            IO.println("1. Start New Game");
+            IO.println("2. Show Highscore");
+            IO.println("3. Exit");
 
-            cpuTurn();
-            if (checkGameOver()) break;
+            int choice = IO.readInt("Choose an option: ");
+
+            switch (choice) {
+                case 1 -> startNewGame();
+                case 2 -> highscore.showScores();
+                case 3 -> {
+                    IO.println("Exiting game...Goodbye!");
+                    exit = true;
+                }
+                default -> IO.println("Invalid choice, please try again!");
+            }
         }
+    }
 
-        endGame();
+    private void startNewGame() {
+        IO.println("Starting new game...");
+
+        this.board = new Board(10,10,10);
+    }
+
+//    public GameController() {
+//        this.board= new Board(10,10,10);
+//        this.player = new Player ("Player 1");
+//        this.cpu = new CpuUser("CPU");
+//        this.isRunning = true;
+//        this.highscore = new HighScore();
+//    }
+
+//    public void startGame() {
+//        IO.println("Welcome to Minesweeper!");
+//        board.printBoard(false);
+//
+//        while (isRunning) {
+//            playerTurn();
+//            if (checkGameOver()) break;
+//
+//            cpuTurn();
+//            if (checkGameOver()) break;
+//        }
+//
+//        endGame();
     }
 //Check if code works with r and c
 
