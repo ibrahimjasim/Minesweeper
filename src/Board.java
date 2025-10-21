@@ -128,7 +128,7 @@ public class Board {
 
         // Print each row
         for (int r = 0; r < rows; r++) {
-            IO.println("%2d ", r);
+            System.out.printf("%2d ", r);
             for (int c = 0; c < cols; c++) {
                 if (revealAll)
                     IO.println((grid[r][c].hasMine() ? "*" : grid[r][c]) + " ");
@@ -137,6 +137,15 @@ public class Board {
             }
             IO.println();
         }
+
+
+    }
+
+        //Allows toggling a flag on a specific cell.
+    public  void toggleFlag(int r, int c) {
+        if (isInBounds(r, c) && !grid[r][c].isRevealed()) {
+            grid[r][c].toggleFlag();
+    }
 
     }
 
