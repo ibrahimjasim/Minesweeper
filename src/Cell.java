@@ -20,7 +20,7 @@ public class Cell {
     }
 
     //Sets whether this cell contains a mine.
-    public void setHasMine() {
+    public void setMine(boolean hasMine) {
         this.hasMine = hasMine;
     }
 

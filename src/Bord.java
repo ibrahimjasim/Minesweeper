@@ -1,3 +1,5 @@
+import java.util.Random;
+
 //The Board class manages the Minesweeper grid.
 public class Bord {
     private final int rows;
@@ -24,7 +26,24 @@ public class Bord {
             }
         }
 
+        placeMines();
 
+
+    }
+    //Randomly places mines on the board.
+    private void placeMines() {
+        Random rand = new Random();
+        int placed = 0;
+
+        while (placed < totalMines) {
+            int r = rand.nextInt(rows);
+            int c = rand.nextInt(cols);
+            // Only place a mine if there isn't one already
+            if (!grid[r][c].hasMine()) {
+                grid[r][c].setMine(true);
+                placed++;
+            }
+        }
     }
 
 
