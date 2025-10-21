@@ -74,7 +74,9 @@ public class Bord {
         return count;
     }
     //Checks whether the given coordinates are inside the board boundaries.
-
+    private boolean isInBounds(int r, int c) {
+        return r >= 0 && r < rows && c >= 0 && c < cols;
+    }
 
 
 
