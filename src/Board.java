@@ -1,14 +1,14 @@
 import java.util.Random;
 
 //The Board class manages the Minesweeper grid.
-public class Bord {
+public class Board {
     private final int rows;
     private final int cols;
     private final int totalMines;
     private final Cell[][] grid; // 2D array of Cell objects
 
     //Constructor: creates a board of given size with given number of mines.
-    public Bord(int rows, int cols,  int totalMines) {
+    public Board(int rows, int cols, int totalMines) {
         this.rows = rows;
         this.cols = cols;
         this.totalMines = totalMines;
@@ -118,7 +118,5 @@ public class Bord {
         return true;
     }
 
-    public void printBoard(boolean revealAll) {
-        for (int r = 0; r < rows; r++) {}
-    }
+
 }
