@@ -118,5 +118,27 @@ public class Board {
         return true;
     }
 
+    // Prints the board to the console.
+    // If revealAll = true, shows all mines (used when game ends).
+    public void printBoard(boolean revealAll) {
+        // Print column headers
+        IO.println("  ");
+        for (int c = 0; c < cols; c++) IO.println(c + " ");
+        IO.println();
+
+        // Print each row
+        for (int r = 0; r < rows; r++) {
+            IO.println("%2d ", r);
+            for (int c = 0; c < cols; c++) {
+                if (revealAll)
+                    IO.println((grid[r][c].hasMine() ? "*" : grid[r][c]) + " ");
+                else
+                    IO.println(grid [r][c] + " ");
+            }
+            IO.println();
+        }
+
+    }
+
 
 }
