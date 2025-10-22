@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="083fdaca-ac17-497c-bcb0-0a9ddc4f5b2c" name="Changes" comment="  Moved curly braces" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$/.." value="Pinar" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 1
+}</component>
+  <component name="ProjectId" id="34MpdLxAFVsOU3DhYwIvuSQcbaG" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "ModuleVcsDetector.initialDetectionPerformed": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
+    "RunOnceActivity.git.unshallow": "true",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "/Users/pinarbildirici/Desktop/Mobilapputvecklare/Minesweeper/src"
+  }
+}]]></component>
+  <component name="SharedIndexes">
+    <attachedChunks>
+      <set>
+        <option value="bundled-jdk-9823dce3aa75-bf35d07a577b-intellij.indexing.shared.core-IU-252.26830.84" />
+      </set>
+    </attachedChunks>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="083fdaca-ac17-497c-bcb0-0a9ddc4f5b2c" name="Changes" comment="" />
+      <created>1761033382190</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1761033382190</updated>
+    </task>
+    <task id="LOCAL−00001" summary="start my code">
+      <option name="closed" value="true" />
+      <created>1761035670101</created>
+      <option name="number" value="LOCAL−00001" />
+      <option name="presentableId" value="LOCAL−00001" />
+      <updated>1761035670101</updated>
+    </task>
+    <task id="LOCAL−00002" summary="Added &quot;makeMove&quot;">
+      <option name="closed" value="true" />
+      <created>1761156774834</created>
+      <option name="number" value="LOCAL−00002" />
+      <option name="presentableId" value="LOCAL−00002" />
+      <updated>1761156774834</updated>
+    </task>
+    <task id="LOCAL−00003" summary="Added Add logic to randomly select an unrevealed and unflagged cell in makeMove&quot;">
+      <option name="closed" value="true" />
+      <created>1761157458191</created>
+      <option name="number" value="LOCAL−00003" />
+      <option name="presentableId" value="LOCAL−00003" />
+      <updated>1761157458191</updated>
+    </task>
+    <task id="LOCAL−00004" summary="Added Add Player class with name field and getter method&quot;">
+      <option name="closed" value="true" />
+      <created>1761157994382</created>
+      <option name="number" value="LOCAL−00004" />
+      <option name="presentableId" value="LOCAL−00004" />
+      <updated>1761157994382</updated>
+    </task>
+    <task id="LOCAL−00005" summary="  Moved curly braces">
+      <option name="closed" value="true" />
+      <created>1761159182900</created>
+      <option name="number" value="LOCAL−00005" />
+      <option name="presentableId" value="LOCAL−00005" />
+      <updated>1761159182900</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
+    <servers />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="start my code" />
+    <MESSAGE value="Added &quot;makeMove&quot;" />
+    <MESSAGE value="Added Add logic to randomly select an unrevealed and unflagged cell in makeMove&quot;" />
+    <MESSAGE value="Added Add Player class with name field and getter method&quot;" />
+    <MESSAGE value="  Moved curly braces" />
+    <option name="LAST_COMMIT_MESSAGE" value="  Moved curly braces" />
+  </component>
+</project>
