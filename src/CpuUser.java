@@ -17,5 +17,14 @@ public class CpuUser {
         int cols = board.getCols();
         int r,c;
 
+        // Randomly pick a cell until an unrevealed and unflagged one is found
+        do {
+            r = rand.nextInt(rows);
+            c = rand.nextInt(cols);
+        } while (board.isRevealed(r, c) || board.isFlagged(r, c));
+
+        return new int[]{r, c};
+    }
+}
 
 
