@@ -165,4 +165,12 @@ public class Board {
     public boolean isFlagged(int r, int c) {
         return isInBounds(r, c) && grid[r][c].isFlagged();
     }
+
+    public boolean allSafeCellsRevealed() {
+        return false;
+    }
+
+    public int getRevealedCount() {
+        return 0;
+    }
 }

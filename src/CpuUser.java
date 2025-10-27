@@ -4,6 +4,7 @@ import java.util.Random;
 public class CpuUser {
     private final String name;
     private final Random rand;
+    public Object[] move;
 
     public CpuUser(String name) {
         this.name = name;

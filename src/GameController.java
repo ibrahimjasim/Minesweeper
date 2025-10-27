@@ -3,7 +3,7 @@ public class GameController {
     private Player player;
     private CpuUser cpu;
     private boolean isRunning;
-    private HighScore highscore;
+    private final HighScore highscore;
 
     public GameController() {
         this.highscore = new HighScore();
@@ -39,9 +39,9 @@ public class GameController {
         IO.println("3. Hard (12x12, 25 mines)");
 
         int diffChoice = IO.readInt("Choose difficulty: ");
-        int rows = 10;
-        int cols = 10;
-        int mines = 10;
+        int rows = 0;
+        int cols = 0;
+        int mines = 0;
 
         //Added diffChoice instead of choice
         switch (diffChoice) {
@@ -101,8 +101,9 @@ public class GameController {
         private void startPlayerVsCpu() {
             this.player = new Player ("player 1");
             this.cpu = new CpuUser("CPU");
+// removed IO.println(String.format("Starting Player vs CPU" ));
 
-            IO.println(String.format("Starting Player vs CPU" ));
+            IO.println("Starting Player vs CPU" );
             board.printBoard(false);
 
             while (isRunning) {
@@ -136,7 +137,7 @@ public class GameController {
         IO.println("CPU is playing..");
         int[] move =cpu.makeMove(board);
 
-        IO.println(String.format("CPU choosed row %d and colum %d", move[0],move[1]));
+        System.out.printf("CPU choosed row %d and colum %d" ,move[0],move[1]);
         if (board.revealCell(move[0], move[1])) {
             IO.println("CPU got BOMBED!");
             isRunning = false;
