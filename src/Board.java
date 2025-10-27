@@ -1,19 +1,18 @@
 import java.util.Random;
 
-//The Board class manages the Minesweeper grid.
+// The Board class manages the Minesweeper grid.
 public class Board {
     private final int rows;
     private final int cols;
     private final int totalMines;
     private final Cell[][] grid; // 2D array of Cell objects
 
-    //Constructor: creates a board of given size with given number of mines.
+    // Constructor: creates a board of given size with given number of mines.
     public Board(int rows, int cols, int totalMines) {
         this.rows = rows;
         this.cols = cols;
         this.totalMines = totalMines;
         grid = new Cell[rows][cols];
-
         initializeBoard();
     }
 
@@ -28,10 +27,9 @@ public class Board {
 
         placeMines();
         calculateAdjacents();
-
-
     }
-    //Randomly places mines on the board.
+
+    // Randomly places mines on the board.
     private void placeMines() {
         Random rand = new Random();
         int placed = 0;
@@ -47,42 +45,40 @@ public class Board {
         }
     }
 
-    //Calculates how many mines surround each non-mine cell.
-    private int calculateAdjacents() {
+    // Calculates how many mines surround each non-mine cell.
+    private void calculateAdjacents() {
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
-                if (grid[r][c].hasMine()) {
+                if (!grid[r][c].hasMine()) {
                     grid[r][c].setAdjacentMines(countAdjacentMines(r, c));
                 }
             }
         }
-
-        return 0;
     }
-    //Counts the number of mines around a specific cell.
+
+    // Counts the number of mines around a specific cell.
     private int countAdjacentMines(int r, int c) {
         int count = 0;
-        for(int i=-1; i<=1; i++){
-            for(int j=-1; j<=1; j++){
-                int nr = r+i;
-                int nc = c+j;
-                if(isInBounds(nr,nc)&& grid[nr][nc].hasMine()){
+        for (int i = -1; i <= 1; i++) {
+            for (int j = -1; j <= 1; j++) {
+                int nr = r + i;
+                int nc = c + j;
+                if (isInBounds(nr, nc) && grid[nr][nc].hasMine()) {
                     count++;
                 }
             }
         }
         return count;
     }
-    //Checks whether the given coordinates are inside the board boundaries.
+
+    // Checks whether the given coordinates are inside the board boundaries.
     private boolean isInBounds(int r, int c) {
         return r >= 0 && r < rows && c >= 0 && c < cols;
     }
 
-    //
-     // Reveals a cell.
-     //Returns false if the cell has a mine (game over), otherwise true.
-     //If the cell has no adjacent mines, automatically reveals nearby cells.
-
+    // Reveals a cell.
+    // Returns false if the cell has a mine (game over), otherwise true.
+    // If the cell has no adjacent mines, automatically reveals nearby cells.
     public boolean revealCell(int r, int c) {
         if (!isInBounds(r, c) || grid[r][c].isRevealed() || grid[r][c].isFlagged()) {
             return true; // Ignore invalid or flagged cells
@@ -90,27 +86,27 @@ public class Board {
 
         grid[r][c].reveal();
 
-        //// If the player hits a mine, game ends
+        // If the player hits a mine, game ends
         if (grid[r][c].hasMine()) {
-        return false;
-    }
+            return false;
+        }
 
         // If there are no nearby mines, reveal neighbors recursively
         if (grid[r][c].getAdjacentMines() == 0) {
-        for (int i =-1; i<=1; i++){
-        for (int j =-1; j<=1; j++){
-            if (i != 0 || j != 0) revealCell(r + i, c + j);
+            for (int i = -1; i <= 1; i++) {
+                for (int j = -1; j <= 1; j++) {
+                    if (i != 0 || j != 0) revealCell(r + i, c + j);
+                }
+            }
         }
-       }
-    }
         return true;
     }
 
-    //Checks if all safe cells (non-mine) have been revealed — player wins if true.
+    // Checks if all safe cells (non-mine) have been revealed — player wins if true.
     public boolean allCellsRevealed() {
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
-                if (!grid[r][c].hasMine()&&grid[r][c].isRevealed()) {
+                if (!grid[r][c].hasMine() && !grid[r][c].isRevealed()) {
                     return false;
                 }
             }
@@ -122,32 +118,51 @@ public class Board {
     // If revealAll = true, shows all mines (used when game ends).
     public void printBoard(boolean revealAll) {
         // Print column headers
-        IO.println("  ");
-        for (int c = 0; c < cols; c++) IO.println(c + " ");
+        IO.print("   ");
+        for (int c = 0; c < cols; c++) IO.print(c + " ");
         IO.println();
 
         // Print each row
         for (int r = 0; r < rows; r++) {
-            IO.println(r + " ");
+            IO.print(r + " ");
+            if (r < 10) IO.print(" "); // spacing
             for (int c = 0; c < cols; c++) {
-                if (revealAll)
-                    IO.println((grid[r][c].hasMine() ? "*" : grid[r][c]) + " ");
-                else
-                    IO.println(grid [r][c] + " ");
+                if (revealAll) {
+                    IO.print((grid[r][c].hasMine() ? "*" : grid[r][c]) + " ");
+                } else {
+                    IO.print(grid[r][c] + " ");
+                }
             }
             IO.println();
         }
-
-
     }
 
-        //Allows toggling a flag on a specific cell.opjkojlkj
-    public  void toggleFlag(int r, int c) {
+    // Allows toggling a flag on a specific cell.
+    public void toggleFlag(int r, int c) {
         if (isInBounds(r, c) && !grid[r][c].isRevealed()) {
             grid[r][c].toggleFlag();
+        }
     }
 
+
+    // Newly added helper methods
+
+
+    public int getRows() {
+        return rows;
     }
 
+    public int getCols() {
+        return cols;
+    }
 
+    // Returns true if the cell at (r, c) has been revealed
+    public boolean isRevealed(int r, int c) {
+        return isInBounds(r, c) && grid[r][c].isRevealed();
+    }
+
+    // Returns true if the cell at (r, c) is flagged
+    public boolean isFlagged(int r, int c) {
+        return isInBounds(r, c) && grid[r][c].isFlagged();
+    }
 }
