@@ -33,7 +33,7 @@ public class HighScore {
         int rank = 1;
 
         for (ScoreEntry entry : scores) {
-            System.out.println("%2d. %-15s %5d\n",rank++, entry.name, entry.score);
+            System.out.printf("%2d. %-15s %5d%n", rank++, entry.name, entry.score);
         }
         System.out.println("======================");
     }
@@ -55,7 +55,7 @@ public class HighScore {
                         String name = parts[0];
                         int score = Integer.parseInt(parts[1]);
                         scores.add(new ScoreEntry(name, score));
-                    } catch (NumberFormatException e) {
+                    } catch (NumberFormatException _) {
 
                     }
                 }

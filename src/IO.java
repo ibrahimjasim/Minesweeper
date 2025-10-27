@@ -25,4 +25,7 @@ public class IO {
             }
         }
     }
+
+    public static void print(String spaces) {
+    }
 }
