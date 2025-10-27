@@ -1,6 +1,6 @@
 public class Main {
 
-    public static void main(String[] args) {
+    static void main(String[] args) {
         IO.println("====== Welcome to the Minesweeper ======");
         IO.println("Created by: Ibrahim, Pinar and Micke");
         IO.println("Press Enter to start...");

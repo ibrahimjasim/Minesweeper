@@ -99,10 +99,16 @@ public class Board {
                 }
             }
         }
+
+        // ✅ Check win condition
+        if (allCellsRevealed()) {
+            System.out.println("🎉 You win! All safe cells revealed!");
+        }
+
         return true;
     }
 
-    // Checks if all safe cells (non-mine) have been revealed — player wins if true.
+    // ✅ Checks if all safe (non-mine) cells are revealed — player wins if true.
     public boolean allCellsRevealed() {
         for (int r = 0; r < rows; r++) {
             for (int c = 0; c < cols; c++) {
@@ -117,23 +123,21 @@ public class Board {
     // Prints the board to the console.
     // If revealAll = true, shows all mines (used when game ends).
     public void printBoard(boolean revealAll) {
-        // Print column headers
-        IO.print("   ");
-        for (int c = 0; c < cols; c++) IO.print(c + " ");
-        IO.println();
+        System.out.print("   ");
+        for (int c = 0; c < cols; c++) System.out.print(c + " ");
+        System.out.println();
 
-        // Print each row
         for (int r = 0; r < rows; r++) {
-            IO.print(r + " ");
-            if (r < 10) IO.print(" "); // spacing
+            System.out.print(r + " ");
+            if (r < 10) System.out.print(" "); // spacing
             for (int c = 0; c < cols; c++) {
                 if (revealAll) {
-                    IO.print((grid[r][c].hasMine() ? "*" : grid[r][c]) + " ");
+                    System.out.print((grid[r][c].hasMine() ? "*" : grid[r][c]) + " ");
                 } else {
-                    IO.print(grid[r][c] + " ");
+                    System.out.print(grid[r][c] + " ");
                 }
             }
-            IO.println();
+            System.out.println();
         }
     }
 
@@ -144,27 +148,11 @@ public class Board {
         }
     }
 
-
-    // Newly added helper methods
-
-
-    public int getRows() {
-        return rows;
-    }
-
-    public int getCols() {
-        return cols;
-    }
-
-    // Returns true if the cell at (r, c) has been revealed
-    public boolean isRevealed(int r, int c) {
-        return isInBounds(r, c) && grid[r][c].isRevealed();
-    }
-
-    // Returns true if the cell at (r, c) is flagged
-    public boolean isFlagged(int r, int c) {
-        return isInBounds(r, c) && grid[r][c].isFlagged();
-    }
+    // Getter methods
+    public int getRows() { return rows; }
+    public int getCols() { return cols; }
+    public boolean isRevealed(int r, int c) { return isInBounds(r, c) && grid[r][c].isRevealed(); }
+    public boolean isFlagged(int r, int c) { return isInBounds(r, c) && grid[r][c].isFlagged(); }
 
     public boolean allSafeCellsRevealed() {
         return false;
