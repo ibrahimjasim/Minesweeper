@@ -3,6 +3,7 @@ import java.util.Scanner;
 // Utility class for console input/output
 public class IO {
     private static final Scanner scanner = new Scanner(System.in);
+    private static String text;
 
     // Prints a line of text
     public static void println(String text) {
@@ -11,6 +12,7 @@ public class IO {
 
     // Prints text without a newline
     public static void print(String text) {
+        IO.text = text;
         System.out.print(text);
     }
 
