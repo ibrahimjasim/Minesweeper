@@ -1,10 +1,7 @@
 import java.util.Random;
-
 // The Board class manages the Minesweeper grid.
 public class Board {
-    private final int rows;
-    private final int cols;
-    private final int totalMines;
+    private final int rows, cols, totalMines;
     private final Cell[][] grid; // 2D array of Cell objects
 
     // Constructor: creates a board of given size with given number of mines.
@@ -12,14 +9,14 @@ public class Board {
         this.rows = rows;
         this.cols = cols;
         this.totalMines = totalMines;
-        grid = new Cell[rows][cols];
+        this.grid = new Cell[rows][cols];
         initializeBoard();
     }
     // Initializes the board by creating cells,
     private void initializeBoard() {
-        for (int i = 0; i < rows; i++)
-            for (int j = 0; j < cols; j++)
-                grid[i][j] = new Cell();
+        for (int r = 0; r < rows; r++)
+            for (int c = 0; c < cols; c++)
+                grid[r][c] = new Cell();
 
         placeMines();
         calculateAdjacents();
@@ -38,7 +35,6 @@ public class Board {
             }
         }
     }
-
     // Calculates how many mines surround each non-mine cell.
     private void calculateAdjacents() {
         for (int r = 0; r < rows; r++)
@@ -50,42 +46,38 @@ public class Board {
     private int countAdjacentMines(int r, int c) {
         int count = 0;
         for (int i = -1; i <= 1; i++)
-            for (int j = -1; j <= 1; j++) {
-                int nr = r + i, nc = c + j;
-                if (isInBounds(nr, nc) && grid[nr][nc].hasMine())
+            for (int j = -1; j <= 1; j++)
+                if (isInBounds(r+i, c+j) && grid[r+i][c+j].hasMine())
                     count++;
-            }
         return count;
     }
 
     private boolean isInBounds(int r, int c) {
         return r >= 0 && r < rows && c >= 0 && c < cols;
     }
-
     // Reveals a cell — returns false if it’s a mine (game over), otherwise true.
+    public boolean isValidCell(int r, int c) {
+        return isInBounds(r, c);
+    }
+
     public boolean revealCell(int r, int c) {
         if (!isInBounds(r, c) || grid[r][c].isRevealed() || grid[r][c].isFlagged())
-            return true; // Ignore invalid or flagged cells
+            return false;
 
         grid[r][c].reveal();
 
-        // If the player hits a mine, game ends
-        if (grid[r][c].hasMine())
-            return false;
+        if (grid[r][c].hasMine()) return true;
 
-        // If no adjacent mines, recursively reveal neighbors
-        if (grid[r][c].getAdjacentMines() == 0) {
+        if (grid[r][c].getAdjacentMines() == 0)
             for (int i = -1; i <= 1; i++)
                 for (int j = -1; j <= 1; j++)
                     if (i != 0 || j != 0)
-                        revealCell(r + i, c + j);
-        }
+                        revealCell(r+i, c+j);
 
-        return true;
+        return false;
     }
 
-    // Checks if all non-mine cells are revealed
-    public boolean allSafeCellsRevealed() {
+    public boolean isCleared() {
         for (int r = 0; r < rows; r++)
             for (int c = 0; c < cols; c++)
                 if (!grid[r][c].hasMine() && !grid[r][c].isRevealed())
@@ -108,25 +100,41 @@ public class Board {
         System.out.println();
 
         for (int r = 0; r < rows; r++) {
-            System.out.print(r + " ");
-            if (r < 10) System.out.print(" "); // spacing
+
+            System.out.printf("%2d | ", r);
+            if (r < 10) System.out.print(" ");
             for (int c = 0; c < cols; c++) {
-                if (revealAll && grid[r][c].hasMine())
-                    System.out.print("* ");
-                else
-                    System.out.print(grid[r][c] + " ");
+                Cell cell = grid[r][c];
+                if (revealAll && cell.hasMine()) System.out.print("B ");
+                else System.out.print(cell + " ");
             }
             System.out.println();
         }
     }
-    // Allows toggling a flag on a specific cell.
-    public void toggleFlag(int r, int c) {
-        if (isInBounds(r, c) && !grid[r][c].isRevealed())
-            grid[r][c].toggleFlag();
+
+    public void printBoardWithLastMove(int[] playerLastMove, int[] cpuLastMove) {
+        System.out.print("   ");
+        for (int c = 0; c < cols; c++) System.out.print(c + " ");
+        System.out.println();
+
+        for (int r = 0; r < rows; r++) {
+            System.out.print(r + " ");
+            if (r < 10) System.out.print(" ");
+            for (int c = 0; c < cols; c++) {
+                Cell cell = grid[r][c];
+                String display = cell.toString();
+
+                if (playerLastMove != null && r == playerLastMove[0] && c == playerLastMove[1])
+                    display = GameController.BLUE + display + GameController.RESET;
+                else if (cpuLastMove != null && r == cpuLastMove[0] && c == cpuLastMove[1])
+                    display = GameController.RED + display + GameController.RESET;
+
+                System.out.print(display + " ");
+            }
+            System.out.println();
+        }
     }
-    // Getter methods
+
     public int getRows() { return rows; }
     public int getCols() { return cols; }
-    public boolean isRevealed(int r, int c) { return isInBounds(r, c) && grid[r][c].isRevealed(); }
-    public boolean isFlagged(int r, int c) { return isInBounds(r, c) && grid[r][c].isFlagged(); }
 }
