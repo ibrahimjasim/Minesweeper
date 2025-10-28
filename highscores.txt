@@ -1,0 +1,8 @@
+
+West;11
+Micke;41
+CPU;16
+qes;32
+Def;18
+CPU;36
+Def;45

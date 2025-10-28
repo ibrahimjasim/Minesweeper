@@ -29,4 +29,16 @@ public class IO {
         System.out.print(prompt);
         return scanner.nextLine().trim();
     }
+
+    public static void waitForEnter(String message) {
+        System.out.print(message);
+        while (true) {
+            String input = readString("");
+            if (input.isEmpty()) {
+                break; // only proceed if user pressed Enter with no text
+            } else {
+                System.out.println("Just press ENTER to continue...");
+            }
+        }
+    }
 }

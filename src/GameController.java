@@ -57,6 +57,7 @@ public class GameController {
         IO.println("1. Easy (8x8, 8 mines)");
         IO.println("2. Medium (10x10, 15 mines)");
         IO.println("3. Hard (12x12, 25 mines)");
+        System.out.println();
 
         int diffChoice = IO.readInt("Choose difficulty: ");
         System.out.println();
@@ -154,6 +155,7 @@ public class GameController {
         board.printBoard(true);
 
         int playerScore = board.getRevealedCount();
+        System.out.println();
         IO.println(player.getName() + "'s score: " + playerScore);
         System.out.println();
         highscore.saveScore(player.getName(), playerScore);
@@ -161,6 +163,7 @@ public class GameController {
         if (cpu != null) {
             int cpuScore = (int)(Math.random()*((double) (board.getRows() * board.getCols()) /2));
             IO.println(cpu.getName() + "'s score: " + cpuScore);
+            System.out.println();
             highscore.saveScore(cpu.getName(), cpuScore);
 
             if (cpuScore>playerScore) IO.println(cpu.getName() + " wins!");
