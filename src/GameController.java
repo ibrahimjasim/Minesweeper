@@ -1,141 +1,147 @@
 public class GameController {
-    private Board board;
     private Player player;
     private CpuUser cpu;
-    private boolean isRunning = true;
+    private Board board;
     private final HighScore highscore;
+    private boolean isRunning;
 
-    public GameController() {
-        this.highscore = new HighScore();
-    }
+    private int[] playerLastMove = null;
+    private int[] cpuLastMove = null;
+
+    private String playerName = null; // remember across rounds
+    private String cpuName = null;    // remember CPU name across rounds
+
+    public static final String RESET = "\u001B[0m";
+    public static final String BLUE = "\u001B[34m";
+    public static final String RED = "\u001B[31m";
+
+    public GameController() { this.highscore = new HighScore("highscores.txt"); }
 
     public void startGame() {
-        boolean exit = false;
+        boolean playAgain = true;
 
-        while (!exit) {
-            IO.println("****** Minesweeper Menu ******");
-            IO.println("1. Start New Game");
-            IO.println("2. Show Highscore");
-            IO.println("3. Exit");
+        while (playAgain) {
+            setupNewGame();
 
-            int choice = IO.readInt("Choose an option: ");
+            isRunning = true;
+            while (isRunning) {
+                playerTurn();
+                if (!isRunning || checkGameOver()) break;
 
-            switch (choice) {
-                case 1 -> startNewGame();
-                case 2 -> highscore.showScores();
-                case 3 -> {
-                    IO.println("Exiting game... Goodbye!");
-                    exit = true;
+                if (cpu != null) {
+                    cpuTurn();
+                    if (!isRunning || checkGameOver()) break;
                 }
-                default -> IO.println("Invalid choice, please try again!");
             }
+
+            endGame();
+
+            String response = IO.readString("Do you want to play another round? (Y/N): ");
+            playAgain = response.equalsIgnoreCase("Y");
         }
+        System.out.println();
+        IO.println("Thanks for playing! Goodbye.");
+        System.out.println();
     }
 
-    private void startNewGame() {
-        // Ask player for name
-        String playerName = IO.readString("Enter your name: ");
+    private void setupNewGame() {
+        if (playerName == null) {
+            playerName = IO.readString("Enter your name: ");
+        }
         this.player = new Player(playerName);
+        System.out.println();
+        IO.println("Hello " + playerName + "! Let's play Minesweeper!");
+        System.out.println();
 
-        IO.println("Welcome, " + playerName + "! Let's play Minesweeper!");
-        IO.println("****** Select Difficulty ******");
+        IO.println("Select difficulty:");
         IO.println("1. Easy (8x8, 8 mines)");
         IO.println("2. Medium (10x10, 15 mines)");
         IO.println("3. Hard (12x12, 25 mines)");
 
         int diffChoice = IO.readInt("Choose difficulty: ");
-        int rows = 10, cols = 10, mines = 15;
+        System.out.println();
+        int rows=10, cols=10, mines=15;
 
-        switch (diffChoice) {
-            case 1 -> { rows = 8; cols = 8; mines = 8; }
-            case 2 -> { rows = 10; cols = 10; mines = 15; }
-            case 3 -> { rows = 12; cols = 12; mines = 25; }
-            default -> IO.println("Invalid choice, defaulting to Medium.");
-        }
-
+//        switch(diffChoice) {
+//            case 1 -> { rows=8; cols=8; mines=8; }
+//            case 2 -> { rows=10; cols=10; mines=15; }
+//            case 3 -> { rows=12; cols=12; mines=25; }
+//        }
 
         this.board = new Board(rows, cols, mines);
-        this.isRunning = true;
 
+        System.out.println();
         IO.println("Select Game Mode:");
         IO.println("1. Single Player");
         IO.println("2. Player vs CPU");
-
+        System.out.println();
         int mode = IO.readInt("Choose mode: ");
-        switch (mode) {
-            case 1 -> startSinglePlayer();
-            case 2 -> startPlayerVsCpu();
-            default -> {
-                IO.println("Invalid choice, starting Single Player as default.");
-                startSinglePlayer();
+        System.out.println();
+        if (mode == 2) {
+            if (cpuName == null) {
+                cpuName = IO.readString("Enter CPU name (or press Enter for 'CPU'): ");
+                System.out.println();
+                if (cpuName.isEmpty()) cpuName = "CPU";
             }
+            this.cpu = new CpuUser(cpuName);
+        } else {
+            cpu = null;
         }
-    }
 
-    private void startSinglePlayer() {
-        this.player = new Player("Player 1");
-        IO.println("Starting Single Player Game...");
+        playerLastMove = null;
+        cpuLastMove = null;
+
         board.printBoard(false);
-
-        while (isRunning) {
-            playerTurn();
-            if (checkGameOver()) break;
-        }
-        endGame();
-    }
-
-    private void startPlayerVsCpu() {
-        this.player = new Player("Player 1");
-        this.cpu = new CpuUser("CPU");
-
-        IO.println("Starting Player vs CPU...");
-        board.printBoard(false);
-
-        while (isRunning) {
-            playerTurn();
-            if (checkGameOver()) break;
-
-            cpuTurn();
-            if (checkGameOver()) break;
-        }
-        endGame();
     }
 
     private void playerTurn() {
-        IO.println(player.getName() + "'s turn!");
-        int row = IO.readInt("Choose Row: ");
-        int col = IO.readInt("Choose Column: ");
-
-        boolean safe = board.revealCell(row, col);
-        if (!safe) {
-            IO.println("💣 BOOM! You hit a mine!");
-            isRunning = false;
-        } else {
-            IO.println("✅ Safe square!");
+        IO.println("\n" + BLUE + player.getName() + "'s turn!" + RESET);
+        int row, col;
+        while (true) {
+            row = IO.readInt("Enter row: ");
+            col = IO.readInt("Enter column: ");
+            if (board.isValidCell(row, col)) break;
+            IO.println("Invalid coordinates! Try again.");
         }
 
-        board.printBoard(false);
+        boolean hitMine = board.revealCell(row, col);
+        playerLastMove = new int[]{row, col};
+
+        if (hitMine) {
+            IO.println(BLUE + "Boom! You hit a mine!" + RESET);
+            System.out.println();
+            isRunning = false;
+            board.printBoard(true);
+        } else {
+            IO.println(BLUE + "Safe move!" + RESET);
+            System.out.println();
+            board.printBoardWithLastMove(playerLastMove, cpuLastMove);
+        }
     }
 
     private void cpuTurn() {
-        IO.println("CPU is thinking...");
+        IO.println("\n" + RED + cpu.getName() + "'s turn!" + RESET);
         int[] move = cpu.makeMove(board);
-        IO.println("CPU chose (" + move[0] + ", " + move[1] + ")");
+        cpuLastMove = move;
 
-        boolean safe = board.revealCell(move[0], move[1]);
-        if (!safe) {
-            IO.println("💥 CPU hit a mine!");
+        IO.println(RED + cpu.getName() + " chooses (" + move[0] + ", " + move[1] + ")" + RESET);
+
+        boolean hitMine = board.revealCell(move[0], move[1]);
+        if (hitMine) {
+            IO.println(RED + cpu.getName() + " hit a mine!" + RESET);
+            System.out.println();
             isRunning = false;
+            board.printBoard(true);
         } else {
-            IO.println("🤖 CPU found a safe square!");
+            IO.println(RED + cpu.getName() + " made a safe move!" + RESET);
+            System.out.println();
+            board.printBoardWithLastMove(playerLastMove, cpuLastMove);
         }
-
-        board.printBoard(false);
     }
 
     private boolean checkGameOver() {
-        if (board.allSafeCellsRevealed()) {
-            IO.println("🎉 All safe squares revealed — You Win!");
+        if (board.isCleared()) {
+            IO.println("All safe squares revealed! You win!");
             isRunning = false;
             return true;
         }
@@ -143,24 +149,26 @@ public class GameController {
     }
 
     private void endGame() {
-        IO.println("====== GAME OVER ======");
-
-        // Reveal the whole board at the end
+        IO.println("\n====== GAME OVER ======");
+        System.out.println();
         board.printBoard(true);
 
         int playerScore = board.getRevealedCount();
         IO.println(player.getName() + "'s score: " + playerScore);
-
-        // Save player's score
+        System.out.println();
         highscore.saveScore(player.getName(), playerScore);
 
-        // If CPU played, give it a random score for fun
         if (cpu != null) {
-            int cpuScore = (int) (Math.random() * (board.getRows() * board.getCols() / 2));
+            int cpuScore = (int)(Math.random()*((double) (board.getRows() * board.getCols()) /2));
             IO.println(cpu.getName() + "'s score: " + cpuScore);
             highscore.saveScore(cpu.getName(), cpuScore);
+
+            if (cpuScore>playerScore) IO.println(cpu.getName() + " wins!");
+            else if (cpuScore<playerScore) IO.println(player.getName() + " wins!");
+            else IO.println("It's a tie!");
         }
 
-        IO.println("========================");
+        highscore.displayScores();
+        IO.println("=========================");
     }
 }
