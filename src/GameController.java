@@ -2,7 +2,7 @@ public class GameController {
     private Board board;
     private Player player;
     private CpuUser cpu;
-    private boolean isRunning;
+    private boolean isRunning = true;
     private final HighScore highscore;
 
     public GameController() {
@@ -33,6 +33,11 @@ public class GameController {
     }
 
     private void startNewGame() {
+        // Ask player for name
+        String playerName = IO.readString("Enter your name: ");
+        this.player = new Player(playerName);
+
+        IO.println("Welcome, " + playerName + "! Let's play Minesweeper!");
         IO.println("****** Select Difficulty ******");
         IO.println("1. Easy (8x8, 8 mines)");
         IO.println("2. Medium (10x10, 15 mines)");
@@ -47,6 +52,7 @@ public class GameController {
             case 3 -> { rows = 12; cols = 12; mines = 25; }
             default -> IO.println("Invalid choice, defaulting to Medium.");
         }
+
 
         this.board = new Board(rows, cols, mines);
         this.isRunning = true;
@@ -137,8 +143,24 @@ public class GameController {
     }
 
     private void endGame() {
-        IO.println("Game Over!");
-        highscore.saveScore(player.getName(), board.getRevealedCount());
+        IO.println("====== GAME OVER ======");
+
+        // Reveal the whole board at the end
         board.printBoard(true);
+
+        int playerScore = board.getRevealedCount();
+        IO.println(player.getName() + "'s score: " + playerScore);
+
+        // Save player's score
+        highscore.saveScore(player.getName(), playerScore);
+
+        // If CPU played, give it a random score for fun
+        if (cpu != null) {
+            int cpuScore = (int) (Math.random() * (board.getRows() * board.getCols() / 2));
+            IO.println(cpu.getName() + "'s score: " + cpuScore);
+            highscore.saveScore(cpu.getName(), cpuScore);
+        }
+
+        IO.println("========================");
     }
 }
