@@ -3,7 +3,6 @@ import java.util.Scanner;
 // Utility class for console input/output
 public class IO {
     private static final Scanner scanner = new Scanner(System.in);
-    private static String text;
 
     // Prints a line of text
     public static void println(String text) {
@@ -12,10 +11,8 @@ public class IO {
 
     // Prints text without a newline
     public static void print(String text) {
-        IO.text = text;
         System.out.print(text);
     }
-
     // Reads an integer from the console with validation
     public static int readInt(String prompt) {
         while (true) {
@@ -23,11 +20,10 @@ public class IO {
             try {
                 return Integer.parseInt(scanner.nextLine().trim());
             } catch (NumberFormatException e) {
-                System.out.println("⚠️  Invalid number. Please enter a valid integer.");
+                System.out.println("⚠️ Invalid number. Please enter a valid integer.");
             }
         }
     }
-
     // Reads a string from the console (trims extra whitespace)
     public static String readString(String prompt) {
         System.out.print(prompt);
