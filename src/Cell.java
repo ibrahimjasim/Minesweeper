@@ -1,12 +1,11 @@
-//Represents a single square (cell) on the Minesweeper board.
+// Represents a single square (cell) on the Minesweeper board.
 public class Cell {
-    private boolean hasMine; // True if this cell contains a mine
-    private boolean revealed; // True if the player has revealed this cell
-    private boolean flagged;  // True if the player marked this cell as a suspected mine
-    private int adjacentMines;  // Number of mines in the 8 surrounding cells
+    private boolean hasMine;      // True if this cell contains a mine
+    private boolean revealed;     // True if the player has revealed this cell
+    private boolean flagged;      // True if the player marked this cell as a suspected mine
+    private int adjacentMines;    // Number of mines in the 8 surrounding cells
 
-
-    //Constructor: Initializes an empty cell with default values.
+    // Constructor: Initializes an empty cell with default values.
     public Cell() {
         this.hasMine = false;
         this.revealed = false;
@@ -14,59 +13,24 @@ public class Cell {
         this.adjacentMines = 0;
     }
 
-    //Returns true if this cell contains a mine.
-    public boolean hasMine() {
-        return hasMine;
-    }
+    public boolean hasMine() { return hasMine; }
+    public void setMine(boolean hasMine) { this.hasMine = hasMine; }
 
-    //Sets whether this cell contains a mine.
-    public void setMine(boolean hasMine) {
-        this.hasMine = hasMine;
-    }
+    public boolean isRevealed() { return revealed; }
+    public void reveal() { this.revealed = true; }
 
-    //Returns true if the cell is revealed.
-    public boolean isRevealed() {
-        return revealed;
-    }
+    public boolean isFlagged() { return flagged; }
+    public void toggleFlag() { this.flagged = !this.flagged; }
 
-    //Marks the cell as revealed
-    public void reveal() {
-        this.revealed = true;
-    }
-    // Returns true if the cell is flagged.
-    public boolean isFlagged() {
-        return flagged;
-    }
-    //Toggles the flagged state (flag <-> unflag).
-    public void toggleFlag() {
-        this.flagged = !this.flagged;
-    }
+    public int getAdjacentMines() { return adjacentMines; }
+    public void setAdjacentMines(int adjacentMines) { this.adjacentMines = adjacentMines; }
 
-    //Returns how many mines are adjacent to this cell.
-    public int getAdjacentMines() {
-        return adjacentMines;
-    }
-
-    //Sets the number of adjacent mines.
-    public void setAdjacentMines(int adjacentMines) {
-        this.adjacentMines = adjacentMines;
-    }
-
-    //
-    //Returns a character representation of the cell.
-    // - F = flagged
-    //- . = hidden
-    //- * = mine
-    //- number = number of adjacent mines
-    //
-
+    // Character representation of the cell
     @Override
-    public String toString(){
-        if(flagged) return "F";
-        if(revealed) return ".";
-        if(hasMine) return "*";
-        return (adjacentMines == 0) ? " " :  Integer.toString(adjacentMines);
+    public String toString() {
+        if (flagged) return "F";
+        if (!revealed) return ".";          // Hidden cell
+        if (hasMine) return "*";            // Revealed mine
+        return (adjacentMines == 0) ? " " : Integer.toString(adjacentMines);
     }
-
 }
-
