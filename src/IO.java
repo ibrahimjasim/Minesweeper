@@ -1,31 +1,34 @@
 import java.util.Scanner;
 
+// Utility class for console input/output
 public class IO {
-
     private static final Scanner scanner = new Scanner(System.in);
 
-    public static void println(String s) {
-        System.out.println();
+    // Prints a line of text
+    public static void println(String text) {
+        System.out.println(text);
     }
-    public static void println() {
-        System.out.println();
+
+    // Prints text without a newline
+    public static void print(String text) {
+        System.out.print(text);
     }
-    public static String readString(String prompt) {
-        System.out.println(prompt);
-        return scanner.nextLine();
-    }
+
+    // Reads an integer from the console with validation
     public static int readInt(String prompt) {
         while (true) {
-            System.out.println(prompt);
-            String line = scanner.nextLine();
+            System.out.print(prompt);
             try {
-                return Integer.parseInt(line.trim());
+                return Integer.parseInt(scanner.nextLine().trim());
             } catch (NumberFormatException e) {
-                System.out.println("Invalid number, try again.");
+                System.out.println("⚠️  Invalid number. Please enter a valid integer.");
             }
         }
     }
 
-    public static void print(String spaces) {
+    // Reads a string from the console (trims extra whitespace)
+    public static String readString(String prompt) {
+        System.out.print(prompt);
+        return scanner.nextLine().trim();
     }
 }
