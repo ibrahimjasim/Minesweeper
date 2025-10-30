@@ -100,8 +100,6 @@ public class GameController {
         IO.println("\n" + BLUE + player.getName() + "'s turn!" + RESET);
         IO.println("💡 Tip: To flag a cell, type 'F row col' (e.g., F 2 3)");
         System.out.println();
-        IO.println("💡 Tip: To reveal a cell, type 'R row col' (e.g., R 2 3)");
-        System.out.println();
 
         String input = IO.readString("Enter your move (R/F row col): ").trim().toUpperCase();
         String[] parts = input.split("\\s+");
