@@ -4,8 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="083fdaca-ac17-497c-bcb0-0a9ddc4f5b2c" name="Changes" comment="  Moved curly braces">
+    <list default="true" id="083fdaca-ac17-497c-bcb0-0a9ddc4f5b2c" name="Changes" comment=" Uppdated branch with the main code">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameController.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -15,7 +16,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$/.." value="Pinar" />
+        <entry key="$PROJECT_DIR$/.." value="main" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
@@ -46,7 +47,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.TerminalTabsStorage.copyFrom.TerminalArrangementManager.252": "true",
     "RunOnceActivity.git.unshallow": "true",
-    "git-widget-placeholder": "main",
+    "git-widget-placeholder": "Pinar",
     "kotlin-language-version-configured": "true",
     "last_opened_file_path": "/Users/pinarbildirici/Desktop/Mobilapputvecklare/Minesweeper/src"
   }
@@ -101,7 +102,14 @@
       <option name="presentableId" value="LOCAL−00005" />
       <updated>1761159182900</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL−00006" summary=" Uppdated branch with the main code">
+      <option name="closed" value="true" />
+      <created>1761826320591</created>
+      <option name="number" value="LOCAL−00006" />
+      <option name="presentableId" value="LOCAL−00006" />
+      <updated>1761826320591</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -121,6 +129,7 @@
     <MESSAGE value="Added Add logic to randomly select an unrevealed and unflagged cell in makeMove&quot;" />
     <MESSAGE value="Added Add Player class with name field and getter method&quot;" />
     <MESSAGE value="  Moved curly braces" />
-    <option name="LAST_COMMIT_MESSAGE" value="  Moved curly braces" />
+    <MESSAGE value=" Uppdated branch with the main code" />
+    <option name="LAST_COMMIT_MESSAGE" value=" Uppdated branch with the main code" />
   </component>
 </project>
