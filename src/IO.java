@@ -20,7 +20,7 @@ public class IO {
             try {
                 return Integer.parseInt(scanner.nextLine().trim());
             } catch (NumberFormatException e) {
-                System.out.println("⚠️ Invalid number. Please enter a valid integer.");
+                System.out.println("Invalid number. Please enter a valid integer.");
             }
         }
     }
