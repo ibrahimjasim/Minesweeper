@@ -95,29 +95,61 @@ public class GameController {
         board.printBoard(false);
     }
 
+    // UPDATED METHOD: Supports "R/F row col" input format
     private void playerTurn() {
         IO.println("\n" + BLUE + player.getName() + "'s turn!" + RESET);
-        int row, col;
-        while (true) {
-            row = IO.readInt("Enter row: ");
-            col = IO.readInt("Enter column: ");
-            if (board.isValidCell(row, col)) break;
-            IO.println("Invalid coordinates! Try again.");
+        IO.println("💡 Tip: To flag a cell, type 'F row col' (e.g., F 2 3)");
+        System.out.println();
+
+        String input = IO.readString("Enter your move (R/F row col): ").trim().toUpperCase();
+        String[] parts = input.split("\\s+");
+
+        if (parts.length != 3) {
+            IO.println("Invalid input! Use 'R row col' to reveal or 'F row col' to flag.");
+            return;
         }
 
-        boolean hitMine = board.revealCell(row, col);
-        playerLastMove = new int[]{row, col};
+        String action = parts[0];
+        int row, col;
+        try {
+            row = Integer.parseInt(parts[1]);
+            col = Integer.parseInt(parts[2]);
+        } catch (NumberFormatException e) {
+            IO.println("Row and column must be numbers!");
+            return;
+        }
 
-        if (hitMine) {
-            IO.println(BLUE + "Boom! You hit a mine!" + RESET);
-            System.out.println();
-            isRunning = false;
-            board.printBoard(true);
-        } else {
-            IO.println(BLUE + "Safe move!" + RESET);
+        if (!board.isValidCell(row, col)) {
+            IO.println("Invalid coordinates! Try again.");
+            return;
+        }
+
+        if (action.equals("F")) {
+            board.toggleFlag(row, col);
+            IO.println(BLUE + " Flag toggled at (" + row + ", " + col + ")" + RESET);
             System.out.println();
             board.printBoardWithLastMove(playerLastMove, cpuLastMove);
+            return;
         }
+
+        if (action.equals("R")) {
+            boolean hitMine = board.revealCell(row, col);
+            playerLastMove = new int[]{row, col};
+
+            if (hitMine) {
+                IO.println(BLUE + " Boom! You hit a mine!" + RESET);
+                System.out.println();
+                isRunning = false;
+                board.printBoard(true);
+            } else {
+                IO.println(BLUE + " Safe move!" + RESET);
+                System.out.println();
+                board.printBoardWithLastMove(playerLastMove, cpuLastMove);
+            }
+            return;
+        }
+
+        IO.println("Invalid action! Use 'R' or 'F'.");
     }
 
     private void cpuTurn() {
