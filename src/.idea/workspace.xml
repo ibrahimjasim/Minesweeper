@@ -4,10 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="083fdaca-ac17-497c-bcb0-0a9ddc4f5b2c" name="Changes" comment=" Uppdated branch with the main code">
-      <change beforePath="$PROJECT_DIR$/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/GameController.java" beforeDir="false" afterPath="$PROJECT_DIR$/GameController.java" afterDir="false" />
-    </list>
+    <list default="true" id="083fdaca-ac17-497c-bcb0-0a9ddc4f5b2c" name="Changes" comment="Uppdated bomb function that show B when the game ended. now pushing it to main to uppdate main" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -116,7 +113,14 @@
       <option name="presentableId" value="LOCAL−00007" />
       <updated>1761827129054</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL−00008" summary="Uppdated bomb function that show B when the game ended. now pushing it to main to uppdate main">
+      <option name="closed" value="true" />
+      <created>1761830334503</created>
+      <option name="number" value="LOCAL−00008" />
+      <option name="presentableId" value="LOCAL−00008" />
+      <updated>1761830334503</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
@@ -137,6 +141,7 @@
     <MESSAGE value="Added Add Player class with name field and getter method&quot;" />
     <MESSAGE value="  Moved curly braces" />
     <MESSAGE value=" Uppdated branch with the main code" />
-    <option name="LAST_COMMIT_MESSAGE" value=" Uppdated branch with the main code" />
+    <MESSAGE value="Uppdated bomb function that show B when the game ended. now pushing it to main to uppdate main" />
+    <option name="LAST_COMMIT_MESSAGE" value="Uppdated bomb function that show B when the game ended. now pushing it to main to uppdate main" />
   </component>
 </project>
