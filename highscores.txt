@@ -6,3 +6,7 @@ qes;32
 Def;18
 CPU;36
 Def;45
+ms;324
+ms;748
+IJ;0
+IJ;342
