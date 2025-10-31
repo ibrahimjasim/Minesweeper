@@ -1,11 +1,9 @@
 import java.util.Random;
 
-// The Board class manages the Minesweeper grid.
 public class Board {
     private final int rows, cols, totalMines;
-    private final Cell[][] grid; // 2D array of Cell objects
+    private final Cell[][] grid;
 
-    // Constructor: creates a board of given size with given number of mines.
     public Board(int rows, int cols, int totalMines) {
         this.rows = rows;
         this.cols = cols;
@@ -14,7 +12,6 @@ public class Board {
         initializeBoard();
     }
 
-    // Initializes the board by creating cells.
     private void initializeBoard() {
         for (int r = 0; r < rows; r++)
             for (int c = 0; c < cols; c++)
@@ -24,7 +21,6 @@ public class Board {
         calculateAdjacents();
     }
 
-    // Randomly places mines on the board.
     private void placeMines() {
         Random rand = new Random();
         int placed = 0;
@@ -38,7 +34,6 @@ public class Board {
         }
     }
 
-    // Calculates how many mines surround each non-mine cell.
     private void calculateAdjacents() {
         for (int r = 0; r < rows; r++)
             for (int c = 0; c < cols; c++)
@@ -46,7 +41,6 @@ public class Board {
                     grid[r][c].setAdjacentMines(countAdjacentMines(r, c));
     }
 
-    // Counts the number of mines around a specific cell.
     private int countAdjacentMines(int r, int c) {
         int count = 0;
         for (int i = -1; i <= 1; i++)
@@ -60,7 +54,6 @@ public class Board {
         return r >= 0 && r < rows && c >= 0 && c < cols;
     }
 
-    // Reveals a cell — returns true if it’s a mine (game over), otherwise false.
     public boolean revealCell(int r, int c) {
         if (!isInBounds(r, c) || grid[r][c].isRevealed() || grid[r][c].isFlagged())
             return false;
@@ -78,7 +71,6 @@ public class Board {
         return false;
     }
 
-    // NEW METHOD: allows flag toggling on unrevealed cells
     public void toggleFlag(int r, int c) {
         if (isInBounds(r, c) && !grid[r][c].isRevealed()) {
             grid[r][c].toggleFlag();
@@ -106,33 +98,38 @@ public class Board {
         return count;
     }
 
-    // UPDATED to show bombs (B) when revealAll == true (e.g., game over)
+    public boolean isCellRevealed(int r, int c) {
+        return isInBounds(r, c) && grid[r][c].isRevealed();
+    }
+
+    // FIXED: spacing and visual alignment
     public void printBoard(boolean revealAll) {
-        System.out.print("   ");
-        for (int c = 0; c < cols; c++) System.out.print(c + " ");
+        System.out.print("     ");
+        for (int c = 0; c < cols; c++) System.out.print(String.format("%2d ", c));
         System.out.println();
 
         for (int r = 0; r < rows; r++) {
-            System.out.printf("%2d | ", r);
-            if (r < 10) System.out.print(" ");
+            System.out.printf("%3d | ", r);
             for (int c = 0; c < cols; c++) {
                 Cell cell = grid[r][c];
-                if (revealAll && cell.hasMine()) System.out.print("B ");
-                else System.out.print(cell + " ");
+                if (revealAll && cell.hasMine())
+                    System.out.print("B  ");
+                else
+                    System.out.print(cell + "  ");
             }
             System.out.println();
         }
+        System.out.println(); // extra line for clean bottom spacing
     }
 
-    // Displays the board with last moves colored
+    // FIXED: alignment and color consistency
     public void printBoardWithLastMove(int[] playerLastMove, int[] cpuLastMove) {
-        System.out.print("   ");
-        for (int c = 0; c < cols; c++) System.out.print(c + " ");
+        System.out.print("     ");
+        for (int c = 0; c < cols; c++) System.out.print(String.format("%2d ", c));
         System.out.println();
 
         for (int r = 0; r < rows; r++) {
-            System.out.print(r + " ");
-            if (r < 10) System.out.print(" ");
+            System.out.printf("%3d | ", r);
             for (int c = 0; c < cols; c++) {
                 Cell cell = grid[r][c];
                 String display = cell.toString();
@@ -142,10 +139,11 @@ public class Board {
                 else if (cpuLastMove != null && r == cpuLastMove[0] && c == cpuLastMove[1])
                     display = GameController.RED + display + GameController.RESET;
 
-                System.out.print(display + " ");
+                System.out.print(display + "  ");
             }
             System.out.println();
         }
+        System.out.println();
     }
 
     public int getRows() { return rows; }
