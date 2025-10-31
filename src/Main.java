@@ -1,5 +1,5 @@
 public class Main {
-    public static void main(String[] args) {
+    static void main() {
         IO.println("====== Welcome to Minesweeper ======");
         IO.println("Created by: Ibrahim, Pinar and Micke");
         System.out.println();
