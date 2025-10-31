@@ -63,11 +63,13 @@ public class GameController {
         System.out.println();
         int rows=10, cols=10, mines=15;
 
-//        switch(diffChoice) {
-//            case 1 -> { rows=8; cols=8; mines=8; }
-//            case 2 -> { rows=10; cols=10; mines=15; }
-//            case 3 -> { rows=12; cols=12; mines=25; }
-//        }
+        switch(diffChoice) {
+            case 1 -> { rows=8; cols=8; mines=8; }
+            case 2 -> {
+            }
+            case 3 -> { rows=12; cols=12; mines=25; }
+            default -> throw new IllegalStateException("Unexpected value: " + diffChoice);
+        }
 
         this.board = new Board(rows, cols, mines);
 
