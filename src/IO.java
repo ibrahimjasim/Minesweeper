@@ -10,9 +10,9 @@ public class IO {
     }
 
     // Prints text without a newline
-    public static void print(String text) {
-        System.out.print(text);
-    }
+//    public static void print(String text) {
+//        System.out.print(text);
+//    }
     // Reads an integer from the console with validation
     public static int readInt(String prompt) {
         while (true) {
