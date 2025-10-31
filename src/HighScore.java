@@ -35,7 +35,7 @@ public class HighScore {
         int rank = 1;
         for (ScoreEntry entry : scores)
             System.out.printf("%2d. %-15s %5d%n", rank++, entry.name, entry.score);
-        System.out.println("=========================");
+        System.out.println("================================");
     }
 
     private static class ScoreEntry {
