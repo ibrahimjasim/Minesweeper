@@ -39,7 +39,7 @@ public class HighScore {
         }
 
         System.out.println();
-        System.out.println(" ====== TOP 10 HIGHSCORES ======");
+        System.out.println("====== TOP 10 HIGHSCORES ======");
         int rank = 1;
         for (ScoreEntry entry : scores) {
             System.out.printf("%2d. %-15s %5d%n", rank++, entry.name, entry.score);
