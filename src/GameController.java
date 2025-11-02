@@ -72,7 +72,7 @@ public class GameController {
         }
 
         System.out.println();
-        IO.println("DEBUG: Creating board of size " + rows + "x" + cols + " with " + mines + " mines.");
+        IO.println("Creating board of size " + rows + "x" + cols + " with " + mines + " mines.");
         System.out.println();
 
         board = new Board(rows, cols, mines);
