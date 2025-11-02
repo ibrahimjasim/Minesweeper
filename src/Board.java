@@ -148,4 +148,15 @@ public class Board {
 
     public int getRows() { return rows; }
     public int getCols() { return cols; }
+// Added winning statement
+    public boolean allMinesCorrectlyFlagged() {
+        for (int r = 0; r < rows; r++) {
+            for (int c = 0; c < cols; c++) {
+                Cell cell = grid[r][c];
+                if (cell.hasMine() && !cell.isFlagged()) return false; // a mine not flagged
+                if (!cell.hasMine() && cell.isFlagged()) return false; // a safe cell incorrectly flagged
+            }
+        }
+        return true;
+    }
 }

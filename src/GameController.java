@@ -166,7 +166,7 @@ public class GameController {
     }
 
     private boolean checkGameOver() {
-        if (board.isCleared()) {
+        if (board.isCleared() || board.allMinesCorrectlyFlagged()) {
             IO.println("All safe squares revealed! You win!");
             isRunning = false;
             return true;
