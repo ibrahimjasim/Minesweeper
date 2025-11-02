@@ -36,4 +36,8 @@ public class CpuUser {
 
         return available.get(rand.nextInt(available.size()));
     }
+
+    public void addScore() {
+
+    }
 }

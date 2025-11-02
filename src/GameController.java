@@ -136,6 +136,7 @@ public class GameController {
                 isRunning = false;
                 board.printBoard(true);
             } else {
+                player.addScore(); // +1 per safe revealed cell
                 IO.println(BLUE + "Safe move!" + RESET);
                 board.printBoardWithLastMove(playerLastMove, cpuLastMove);
             }
@@ -158,6 +159,7 @@ public class GameController {
             isRunning = false;
             board.printBoard(true);
         } else {
+            cpu.addScore(); // +1 safe revealed cell for cpu
             IO.println(RED + cpu.getName() + " made a safe move!" + RESET);
             board.printBoardWithLastMove(playerLastMove, cpuLastMove);
         }
