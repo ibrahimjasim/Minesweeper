@@ -217,12 +217,6 @@ Do you want to play another round? (Y/N):
 
 ---
 
-## 🪙 License  
-
-This project is released under the **MIT License** — free to use, modify, and share.  
-
----
-
 ## 🌟 Bonus Ideas  
 
 You can expand this game by adding:
