@@ -105,7 +105,7 @@ public class Board {
     // FIXED: spacing and visual alignment
     public void printBoard(boolean revealAll) {
         System.out.print("     ");
-        for (int c = 0; c < cols; c++) System.out.print(String.format("%2d ", c));
+        for (int c = 0; c < cols; c++) System.out.printf("%2d ", c);
         System.out.println();
 
         for (int r = 0; r < rows; r++) {
@@ -125,7 +125,7 @@ public class Board {
     // FIXED: alignment and color consistency
     public void printBoardWithLastMove(int[] playerLastMove, int[] cpuLastMove) {
         System.out.print("     ");
-        for (int c = 0; c < cols; c++) System.out.print(String.format("%2d ", c));
+        for (int c = 0; c < cols; c++) System.out.printf("%2d ", c);
         System.out.println();
 
         for (int r = 0; r < rows; r++) {
